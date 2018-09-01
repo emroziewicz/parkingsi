@@ -1,0 +1,47 @@
+{% extends 'template.twig' %}
+{% set active = 'reservations' %}
+
+{% block content %}
+
+    <table class="table">
+        <thead class="thead-light">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">{{ 'date'|trans }}</th>
+            <th scope="col">{{ 'place_number'|trans }}</th>
+            <th scope="col">{{ 'car'|trans }}</th>
+            <th scope="col">{{ 'actions'|trans }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for reservation in reservations %}
+            <tr>
+                <th scope="row">{{ reservation.id }}</th>
+                <td>{{ reservation.date }}</td>
+                <td>
+                    {% for place in places %}
+                        {% if place.id == reservation.place_id %}
+                            {{ place.name }}
+                        {% endif %}
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for car in cars %}
+                        {% if car.id == reservation.car_id %}
+                            {{ car.name }}/{{ car.vrm }}
+                        {% endif %}
+                    {% endfor %}
+                </td>
+                <td>
+                    <a href="{{ path('reservation_delete', { id: reservation.id}) }}">
+                        <span class="far fa-trash-alt fa-lg" style="color: red;"></span>
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+
+{% endblock %}

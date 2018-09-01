@@ -1,0 +1,31 @@
+{% extends 'template.twig' %}
+{% set active = 'car' %}
+
+{% block content %}
+    <div class="row mb-2">
+        <div class="col-md-3">
+            <div class="card flex-md-row mb-4 box-shadow center-block">
+                <div class="card-body d-flex flex-column" style="text-align: center;">
+                    <form method="post" action="{{ path('car_save') }}">
+                        <input type="text" name="name" class="form-control" placeholder="{{ 'name'|trans }}" autofocus/>
+                        <input type="text" name="vrm" class="form-control" placeholder="{{ 'vrm'|trans }}" />
+                        <input type="submit" class="btn btn-outline-primary" value="{{ 'save'|trans }}"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        {% for car in cars %}
+            <div class="col-md-3">
+                <div class="card flex-md-row mb-4 box-shadow center-block">
+                    <div class="card-body d-flex flex-column" style="text-align: center;">
+                        <h3 class="mb-0">{{ car.name }}</h3>
+                        <h4 class="mb-0">{{ car.vrm }}</h4>
+                        <a class="btn btn-outline-primary" href="{{ path('car_delete', { id: car.id}) }}">{{ 'delete'|trans }}</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+    </div>
+{% endblock %}

@@ -1,0 +1,47 @@
+#AppName
+app.name: System rezerwacji parkingowej
+
+#Login
+email: Email
+password: Hasło
+sign_in: Zaloguj
+please_log_in: Proszę się zalogować
+login: Logowanie
+logout: Logout
+
+#General
+edit: Edycja
+delete: Usuń
+save: Zapisz
+name: Nazwa
+car: Pojazd
+
+#Register
+register: Rejestracja
+register2: Zarejestruj
+
+#Cars:
+cars: Samochody
+
+#Reservations:
+reservations: Rezerwacje
+reserve: Rezerwuj
+reserved: Zarezerwowany
+
+#Parking
+parking_places: Miejsca parkingowe
+place_number: Number miejsca
+
+#Users
+users: Użytkownicy
+actions: Akcje
+active: Aktywny
+
+#Car
+vrm: Numer rejestracyjny
+
+#Messages
+message.account_created: Konto zostało utworzone
+message.form_error: Formularz zawiera błędy
+message.data_saved: Dane zostały zapisane
+message.data_delete: Dane zostały usunięte

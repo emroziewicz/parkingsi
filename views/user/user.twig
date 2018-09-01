@@ -1,0 +1,47 @@
+{% extends 'template.twig' %}
+{% set active = 'user' %}
+
+{% block content %}
+
+    <table class="table">
+        <thead class="thead-light">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Email</th>
+            <th scope="col">Admin</th>
+            <th scope="col">{{ 'active'|trans }}</th>
+            <th scope="col">{{ 'actions'|trans }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <th scope="row">{{ user.id }}</th>
+                <td>{{ user.email }}</td>
+                <td>
+                    <a href="{{ path('user_admin', { id: user.id}) }}">
+                        <span class="far fa-thumbs-up fa-lg"
+                              style="color: {% if 'ADMIN' in user.roles %}green{% else %}lightgray{% endif %}"
+                              aria-hidden="true"></span>
+                    </a>
+                </td>
+                <td>
+                    <a href="{{ path('user_active', { id: user.id}) }}">
+                        <span class="far fa-thumbs-up fa-lg"
+                              style="color: {% if user.active == 1 %}green{% else %}lightgray{% endif %}"
+                              aria-hidden="true"></span>
+                    </a>
+                </td>
+                <td>
+                    <a href="{{ path('user_delete', { id: user.id}) }}">
+                        <span class="far fa-trash-alt fa-lg" style="color: red;"></span>
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+
+{% endblock %}

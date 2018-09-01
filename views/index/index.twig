@@ -1,0 +1,43 @@
+{% extends 'template.twig' %}
+{% set active = 'homepage' %}
+
+{% block content %}
+
+    <input type="text" class="form-control mb-2" value="{{ date }}"/>
+
+    <div class="row mb-2">
+
+        {% for place in places %}
+            <div class="col-md-3">
+                <div class="card flex-md-row mb-4 box-shadow center-block">
+                    <div class="card-body d-flex flex-column" style="text-align: center;">
+                        <form method="post" action="{{ path('reservation_save') }}">
+                            <input type="hidden" value="{{ place.id }}" name="place_id"/>
+                            <input type="hidden" value="{{ date }}" name="date"/>
+                            <h3 class="mb-0">{{ place.name }}</h3>
+                            <select class="form-control" name="car_id">
+                                {% for car in cars %}
+                                    <option value="{{ car.id }}">{{ car.name }}/{{ car.vrm }}</option>
+                                {% endfor %}
+                            </select>
+                            {% set used = false %}
+                            {% for reservation in reservations %}
+                                {% if reservation.place_id == place.id %}
+                                    {% set used = true %}
+                                {% endif %}
+                            {% endfor %}
+
+                            {% if used %}
+                                <input type="button" class="btn btn-outline-secondary"  value="{{ 'reserved'|trans }}"/>
+                            {% else %}
+                                <input type="submit" class="btn btn-outline-primary" value="{{ 'reserve'|trans }}"/>
+                            {% endif %}
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+    </div>
+{% endblock %}

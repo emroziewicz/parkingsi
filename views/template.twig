@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="{{ 'app.name'|trans }}">
+    <meta name="author" content="Ewelina Mroziewicz">
+
+    <title>{{ 'app.name'|trans }}</title>
+
+    <link href="{{ asset('lib/bootstrap-4.1.1/dist/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('lib/css/page.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+
+</head>
+
+<body>
+
+<div class="container">
+    <header class="page-header py-3">
+        <div class="row flex-nowrap justify-content-between align-items-center">
+            <div class="col-2 pt-1">
+                <a class="btn btn-sm btn-outline-secondary ml-2" href="{{ path('edit') }}">{{ app.user.username }}</a>
+            </div>
+            <div class="col-8 text-center">
+                <a class="page-header-logo text-dark" href="{{ path('index') }}">{{ 'app.name'|trans }}</a>
+            </div>
+            <div class="col-2 d-flex justify-content-end align-items-center">
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                    <a class="btn btn-sm btn-outline-secondary mr-2" href="{{ path('logout') }}">{{ 'logout'|trans }}</a>
+                {% else %}
+                    <a class="btn btn-sm btn-outline-secondary mr-2" href="{{ path('login') }}">{{ 'login'|trans }}</a>
+                    <a class="btn btn-sm btn-outline-secondary" href="{{ path('register') }}">{{ 'register'|trans }}</a>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+
+    <div class="nav-scroller py-1 mb-2">
+        <nav class="nav d-flex">
+            <a class="p-2 text-muted" href="{{ path('index') }}" {% if 'homepage' == active %}style="font-weight: bold;"{% endif %}>Home</a>
+            {% if is_granted('ROLE_USER') %}
+                <a class="p-2 text-muted" href="{{ path('car') }}" {% if 'car' == active %}style="font-weight: bold;"{% endif %}>{{ 'cars'|trans }}</a>
+                <a class="p-2 text-muted" href="{{ path('reservation') }}" {% if 'reservations' == active %}style="font-weight: bold;"{% endif %}>{{ 'reservations'|trans }}</a>
+            {% endif %}
+
+            {% if is_granted('ROLE_ADMIN') %}
+                <a class="p-2 text-muted" href="{{ path('parking') }}" {% if 'parking' == active %}style="font-weight: bold;"{% endif %}>{{ 'parking_places'|trans }}</a>
+                <a class="p-2 text-muted" href="{{ path('user') }}" {% if 'user' == active %}style="font-weight: bold;"{% endif %}>{{ 'users'|trans }}</a>
+            {% endif %}
+        </nav>
+    </div>
+
+    {% set info_message = app.session.flashbag.get('error') %}
+    {% if info_message|length > 0 %}
+        {% for flash_message in info_message %}
+            <div class="alert alert-danger" role="alert">
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                {{ flash_message|trans }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    {% set info_message = app.session.flashbag.get('success') %}
+    {% if info_message|length > 0 %}
+        {% for flash_message in info_message %}
+            <div class="alert alert-success" role="alert">
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                {{ flash_message|trans }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    {% block content %}
+    {% endblock %}
+
+</div>
+
+<footer class="footer">
+    <p>
+        &copy; {{ "now"|date("Y") }}
+    </p>
+</footer>
+
+</body>
+</html>
