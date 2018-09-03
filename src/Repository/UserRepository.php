@@ -83,6 +83,8 @@ class UserRepository
 
         try {
             if (isset($obj['id'])) {
+                $this->_db->delete('reservation_tab', ['user_id' => $obj['id']]);
+                $this->_db->delete('car_tab', ['user_id' => $obj['id']]);
                 $this->_db->delete('user_tab', ['id' => $obj['id']]);
             }
             $this->_db->commit();
